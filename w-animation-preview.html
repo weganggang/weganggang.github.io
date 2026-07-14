@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Weavit W 드로잉 v13</title>
+<title>Weavit W 드로잉 v14</title>
 <style>
   body { margin:0; min-height:100vh; display:flex; flex-direction:column;
     align-items:center; justify-content:center; background:#FFF; font-family:sans-serif; }
@@ -47,16 +47,15 @@
   <div class="phone">
     <svg viewBox="0 0 512 512">
       <defs>
-        <clipPath id="leftOfSeam">
-          <polygon points="0,0 334,0 334,118 322,160 310,205 298,250 286,295 274,340 265,375 262,400 262,512 0,512"/>
-        </clipPath>
         <mask id="reveal">
           <rect x="0" y="0" width="512" height="512" fill="black"/>
-          <g clip-path="url(#leftOfSeam)">
-            <path id="strokeA" pathLength="1" d="M 35,196 L 49,174 L 61,149 L 76,126 L 98,109 L 125,103 L 147,116 L 156,142 L 153,169 L 145,195 L 136,221 L 128,247 L 120,273 L 114,300 L 111,328 L 115,355 L 124,381 L 145,400 L 171,408 L 199,406 L 224,396 L 245,377 L 256,352 L 266,326 L 276,299 L 285,272 L 293,244 L 301,216 L 309,187 L 316,158 L 322,130"
-              fill="none" stroke="white" stroke-width="80"
-              stroke-linecap="round" stroke-linejoin="round"/>
-          </g>
+          <!-- 1단계: 올라가기 (아래 검정 블록이 경계 오른쪽 번짐을 차단) -->
+          <path id="strokeA" pathLength="1" d="M 35,196 L 49,174 L 61,149 L 76,126 L 98,109 L 125,103 L 147,116 L 156,142 L 153,169 L 145,195 L 136,221 L 128,247 L 120,273 L 114,300 L 111,328 L 115,355 L 124,381 L 145,400 L 171,408 L 199,406 L 224,396 L 245,377 L 256,352 L 266,326 L 276,299 L 285,272 L 293,244 L 301,216 L 309,187 L 316,158 L 322,130"
+            fill="none" stroke="white" stroke-width="80"
+            stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- 경계 오른쪽 차단막: strokeA 위에 검정으로 덮음 -->
+          <polygon points="334,0 512,0 512,512 262,512 262,400 265,375 274,340 286,295 298,250 310,205 322,160 334,118" fill="black"/>
+          <!-- 2단계: 한바퀴+내려오기+둘째골+매듭 (차단막 위에 흰색으로 그림) -->
           <path id="strokeB" pathLength="1" d="M 322,130 L 329,120 L 337,123 L 340,133 L 335,147 L 329,172 L 321,207 L 312,247 L 302,287 L 292,327 L 285,357 L 283,376 L 290,394 L 305,403 L 318,406 L 346,408 L 373,402 L 395,384 L 411,362 L 422,337 L 432,312 L 440,286 L 448,259 L 454,233 L 458,205 L 461,176 L 460,149 L 452,124"
             fill="none" stroke="white" stroke-width="80"
             stroke-linecap="round" stroke-linejoin="round"/>
@@ -72,7 +71,7 @@
     </div>
   </div>
   <div class="note">
-    v13 — 기울어진 경계면(빨간선)대로 올라갔다 내려오기<br>
+    v14 — 경계 차단을 페인트 순서로 (모든 브라우저 동작 보장)<br>
     2.3초 그리기 → 유지 → 페이드 → 반복
   </div>
 </body>
