@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weavit W 드로잉 애니메이션 미리보기</title>
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #FFFFFF;
+    font-family: sans-serif;
+  }
+  .phone {
+    width: 340px;
+    height: 640px;
+    border: 2px solid #ddd;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: #FFFFFF;
+  }
+  svg { width: 260px; height: 260px; }
+  .caller {
+    margin-top: 8px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #1A1A2E;
+  }
+  .sub { margin-top: 4px; font-size: 15px; color: #555555; }
+  .buttons {
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 48px;
+    box-sizing: border-box;
+  }
+  .btn {
+    width: 64px; height: 64px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 26px;
+  }
+  .decline { background: #F44336; }
+  .accept { background: #4CAF50; }
+  .note {
+    margin-top: 24px; color: #888; font-size: 13px; text-align: center;
+    line-height: 1.6;
+  }
+
+  /* APK와 동일: 2300ms 그리기 → 1000ms 홀드 → 반복 (총 3300ms) */
+  #wpath {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: draw 3300ms linear infinite;
+  }
+  @keyframes draw {
+    0%     { stroke-dashoffset: 1; }   /* trimPathEnd=0 */
+    69.7%  { stroke-dashoffset: 0; }   /* 2300ms: 다 그림 */
+    100%   { stroke-dashoffset: 0; }   /* 1000ms 홀드 */
+  }
+</style>
+</head>
+<body>
+  <div class="phone">
+    <svg viewBox="0 0 512 512">
+      <!-- APK의 ic_w_draw.xml과 동일한 경로/색/굵기 -->
+      <path id="wpath" pathLength="1"
+        d="M 98,212
+           C 108,195 130,162 155,149
+           C 162,147 170,151 173,172
+           C 178,215 205,400 228,430
+           C 252,430 272,162 295,162
+           C 318,162 338,430 362,430
+           C 386,430 416,200 428,200
+           C 432,197 440,188 440,182"
+        fill="none"
+        stroke="#5B4BC4"
+        stroke-width="48"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+    </svg>
+    <div class="caller">이종빈</div>
+    <div class="sub">연결 요청</div>
+    <div class="buttons">
+      <div class="btn decline">✕</div>
+      <div class="btn accept">✓</div>
+    </div>
+  </div>
+  <div class="note">
+    v1.7.29 C3 수신화면 W 드로잉 미리보기<br>
+    APK와 동일 경로·타이밍 (2.3초 그리기 → 1초 홀드 → 반복)
+  </div>
+</body>
+</html>
