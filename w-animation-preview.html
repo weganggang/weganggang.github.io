@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Weavit W 드로잉 v7</title>
+<title>Weavit W 드로잉 v8</title>
 <style>
   body { margin:0; min-height:100vh; display:flex; flex-direction:column;
     align-items:center; justify-content:center; background:#FFF; font-family:sans-serif; }
@@ -21,7 +21,7 @@
   .accept { background:#4CAF50; }
   .note { margin-top:24px; color:#888; font-size:13px; text-align:center; line-height:1.6; }
 
-  /* 봉우리: 획 전체 폭으로 올라감 → 꼭대기 한 바퀴 → 내려오는 구간은 빠르게 감기(멈춤 없음) */
+  /* 내려오기+합류부 통과를 통째로 빠르게(0.12s) — 절단면이 두꺼운 곳에 머물지 않음 */
   #maskstroke {
     stroke-dasharray: 1;
     stroke-dashoffset: 1;
@@ -30,8 +30,8 @@
   #wfill { animation: fade 3300ms linear infinite; }
   @keyframes draw {
     0%      { stroke-dashoffset: 1;      stroke-width: 80; }
-    44.65%  { stroke-dashoffset: 0.4209; stroke-width: 80; }
-    47.68%  { stroke-dashoffset: 0.2856; stroke-width: 80; }
+    47.13%  { stroke-dashoffset: 0.4209; stroke-width: 80; }
+    50.76%  { stroke-dashoffset: 0.2326; stroke-width: 80; }
     69.7%   { stroke-dashoffset: 0;      stroke-width: 80; }
     75%     { stroke-dashoffset: 0;      stroke-width: 106; }
     100%    { stroke-dashoffset: 0;      stroke-width: 106; }
@@ -64,7 +64,7 @@
     </div>
   </div>
   <div class="note">
-    v7 — 그대로 올라갔다가 한 바퀴 돌고 내려오는 방식<br>
+    v8 — 내려오기~합류부를 한 번에 통과 (잘린 면이 머물지 않음)<br>
     2.3초 그리기 → 유지 → 페이드 → 반복
   </div>
 </body>
