@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Weavit W 드로잉 v11</title>
+<title>Weavit W 드로잉 v12</title>
 <style>
   body { margin:0; min-height:100vh; display:flex; flex-direction:column;
     align-items:center; justify-content:center; background:#FFF; font-family:sans-serif; }
@@ -21,17 +21,28 @@
   .accept { background:#4CAF50; }
   .note { margin-top:24px; color:#888; font-size:13px; text-align:center; line-height:1.6; }
 
-  #maskstroke {
-    stroke-dasharray: 1;
-    stroke-dashoffset: 1;
-    animation: draw 3300ms linear infinite;
+  /* 2단계: A(올라가기, 빨간선 왼쪽만 클립) → B(한바퀴+내려오기+둘째골+매듭) */
+  #strokeA {
+    stroke-dasharray: 1; stroke-dashoffset: 1;
+    animation: drawA 3300ms linear infinite;
+  }
+  #strokeB {
+    stroke-dasharray: 1; stroke-dashoffset: 1;
+    animation: drawB 3300ms linear infinite;
   }
   #wfill { animation: fade 3300ms linear infinite; }
-  @keyframes draw {
-    0%      { stroke-dashoffset: 1; stroke-width: 80; }
-    69.7%   { stroke-dashoffset: 0; stroke-width: 80; }
-    75%     { stroke-dashoffset: 0; stroke-width: 106; }
-    100%    { stroke-dashoffset: 0; stroke-width: 106; }
+  @keyframes drawA {
+    0%       { stroke-dashoffset: 1; stroke-width: 80; }
+    38.59%  { stroke-dashoffset: 0; stroke-width: 80; }
+    69.7%    { stroke-dashoffset: 0; stroke-width: 80; }
+    75%      { stroke-dashoffset: 0; stroke-width: 106; }
+    100%     { stroke-dashoffset: 0; stroke-width: 106; }
+  }
+  @keyframes drawB {
+    0%, 38.59% { stroke-dashoffset: 1; stroke-width: 80; }
+    69.7%    { stroke-dashoffset: 0; stroke-width: 80; }
+    75%      { stroke-dashoffset: 0; stroke-width: 106; }
+    100%     { stroke-dashoffset: 0; stroke-width: 106; }
   }
   @keyframes fade {
     0%, 93% { opacity: 1; }
@@ -43,11 +54,17 @@
   <div class="phone">
     <svg viewBox="0 0 512 512">
       <defs>
+        <clipPath id="leftOfRed">
+          <polygon points="0,0 334,0 334,112 328,150 322,182 316,212 310,242 304,270 298,298 292,325 287,350 282,372 277,390 272,405 272,512 0,512"/>
+        </clipPath>
         <mask id="reveal">
           <rect x="0" y="0" width="512" height="512" fill="black"/>
-          <!-- 바닥 경로가 모서리까지 덮음 + 올라갈 땐 왼쪽/경계면은 획 방향(주황 선) + 내려오며 오른쪽 채움 -->
-          <path id="maskstroke" pathLength="1"
-            d="M 35,196 L 49,174 L 61,149 L 76,126 L 98,109 L 125,103 L 147,116 L 156,142 L 153,169 L 145,195 L 136,221 L 128,247 L 120,273 L 114,300 L 111,328 L 115,355 L 124,381 L 145,400 L 171,408 L 199,406 L 226,398 L 252,389 L 266,374 L 266,338 L 262,310 L 264,283 L 271,255 L 278,228 L 285,202 L 292,175 L 298,149 L 303,133 L 310,122 L 320,118 L 329,123 L 331,136 L 328,148 L 323,175 L 317,205 L 311,235 L 305,263 L 299,291 L 293,318 L 288,345 L 284,370 L 291,393 L 305,403 L 318,406 L 346,408 L 373,402 L 395,384 L 411,362 L 422,337 L 432,312 L 440,286 L 448,259 L 454,233 L 458,205 L 461,176 L 460,149 L 452,124"
+          <g clip-path="url(#leftOfRed)">
+            <path id="strokeA" pathLength="1" d="M 35,196 L 49,174 L 61,149 L 76,126 L 98,109 L 125,103 L 147,116 L 156,142 L 153,169 L 145,195 L 136,221 L 128,247 L 120,273 L 114,300 L 111,328 L 115,355 L 124,381 L 145,400 L 171,408 L 199,406 L 226,398 L 252,389 L 266,374 L 266,344 L 262,312 L 264,284 L 271,256 L 278,229 L 285,203 L 292,176 L 298,150 L 304,133 L 310,124"
+              fill="none" stroke="white" stroke-width="80"
+              stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+          <path id="strokeB" pathLength="1" d="M 310,124 L 320,118 L 329,123 L 332,136 L 328,150 L 322,178 L 316,208 L 310,238 L 304,266 L 298,294 L 292,322 L 288,348 L 284,372 L 290,394 L 305,403 L 318,406 L 346,408 L 373,402 L 395,384 L 411,362 L 422,337 L 432,312 L 440,286 L 448,259 L 454,233 L 458,205 L 461,176 L 460,149 L 452,124"
             fill="none" stroke="white" stroke-width="80"
             stroke-linecap="round" stroke-linejoin="round"/>
         </mask>
@@ -62,7 +79,7 @@
     </div>
   </div>
   <div class="note">
-    v11 — 시작부터 아래 모서리 채움 + 주황 선 경계 유지<br>
+    v12 — 빨간선 경계 절대 보장(클립) : 올라가기 → 한바퀴 → 내려오며 오른쪽<br>
     2.3초 그리기 → 유지 → 페이드 → 반복
   </div>
 </body>
