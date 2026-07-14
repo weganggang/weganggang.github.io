@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Weavit W 드로잉 v10</title>
+<title>Weavit W 드로잉 v11</title>
 <style>
   body { margin:0; min-height:100vh; display:flex; flex-direction:column;
     align-items:center; justify-content:center; background:#FFF; font-family:sans-serif; }
@@ -21,8 +21,6 @@
   .accept { background:#4CAF50; }
   .note { margin-top:24px; color:#888; font-size:13px; text-align:center; line-height:1.6; }
 
-  /* 올라갈 땐 왼쪽면(오른쪽은 비스듬한 면으로 남음) → 꼭대기 한 바퀴 →
-     내려오며 오른쪽 면을 그리고 아래 모서리를 돌아 둘째 골로 */
   #maskstroke {
     stroke-dasharray: 1;
     stroke-dashoffset: 1;
@@ -47,8 +45,9 @@
       <defs>
         <mask id="reveal">
           <rect x="0" y="0" width="512" height="512" fill="black"/>
+          <!-- 바닥 경로가 모서리까지 덮음 + 올라갈 땐 왼쪽/경계면은 획 방향(주황 선) + 내려오며 오른쪽 채움 -->
           <path id="maskstroke" pathLength="1"
-            d="M 35,196 L 49,174 L 61,149 L 76,126 L 98,109 L 125,103 L 147,116 L 156,142 L 153,169 L 145,195 L 136,221 L 128,247 L 120,273 L 114,300 L 111,328 L 115,355 L 124,381 L 145,400 L 171,408 L 199,406 L 224,396 L 245,377 L 268,363 L 266,338 L 262,310 L 264,283 L 271,255 L 278,228 L 285,202 L 292,175 L 298,149 L 303,133 L 310,122 L 320,118 L 329,123 L 331,136 L 328,148 L 323,175 L 317,205 L 311,235 L 305,263 L 299,291 L 293,318 L 288,345 L 284,370 L 291,393 L 305,403 L 318,406 L 346,408 L 373,402 L 395,384 L 411,362 L 422,337 L 432,312 L 440,286 L 448,259 L 454,233 L 458,205 L 461,176 L 460,149 L 452,124"
+            d="M 35,196 L 49,174 L 61,149 L 76,126 L 98,109 L 125,103 L 147,116 L 156,142 L 153,169 L 145,195 L 136,221 L 128,247 L 120,273 L 114,300 L 111,328 L 115,355 L 124,381 L 145,400 L 171,408 L 199,406 L 226,398 L 252,389 L 266,374 L 266,338 L 262,310 L 264,283 L 271,255 L 278,228 L 285,202 L 292,175 L 298,149 L 303,133 L 310,122 L 320,118 L 329,123 L 331,136 L 328,148 L 323,175 L 317,205 L 311,235 L 305,263 L 299,291 L 293,318 L 288,345 L 284,370 L 291,393 L 305,403 L 318,406 L 346,408 L 373,402 L 395,384 L 411,362 L 422,337 L 432,312 L 440,286 L 448,259 L 454,233 L 458,205 L 461,176 L 460,149 L 452,124"
             fill="none" stroke="white" stroke-width="80"
             stroke-linecap="round" stroke-linejoin="round"/>
         </mask>
@@ -63,7 +62,7 @@
     </div>
   </div>
   <div class="note">
-    v10 — 왼쪽↑ 한바퀴 오른쪽↓ 모서리 돌아 나가기<br>
+    v11 — 시작부터 아래 모서리 채움 + 주황 선 경계 유지<br>
     2.3초 그리기 → 유지 → 페이드 → 반복
   </div>
 </body>
